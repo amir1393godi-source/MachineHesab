@@ -1,25 +1,27 @@
 name: Build Android APK
 
 on:
-  push:
-    branches: [ main ]
+push:
+branches: [ main ]
+workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+build:
+runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+steps:
+  - name: Checkout
+    uses: actions/checkout@v4
 
-      - name: Build APK
-        uses: ArtemSBulgakov/buildozer-action@v1
-        with:
-          workdir: .
-          buildozer_version: stable
+  - name: Build APK
+    uses: ArtemSBulgakov/buildozer-action@v1
+    with:
+      workdir: .
+      buildozer_version: stable
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: MachineHesab-APK
-          path: bin/*.apk
+  - name: Upload APK
+    uses: actions/upload-artifact@v4
+    with:
+      name: MachineHesab-APK
+      path: bin/*.apk
+      if-no-files-found: error
